@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mejores Marcas por Ventas</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const url = "https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Marketing/MejoresMarcasXUnidad";
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Error en la solicitud: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    let rows = data.rows || [];
+                    let tableHTML = `<table border="1" style="border-collapse: collapse; width: 100%; text-align: center;">
+                        <thead>
+                            <tr>
+                                <th>Marca</th>
+                                <th>Total Ventas</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+                    
+                    rows.forEach(row => {
+                        tableHTML += `<tr>
+                            <td>${row.Marca}</td>
+                            <td>${row.TotalVentas}</td>
+                        </tr>`;
+                    });
+
+                    tableHTML += `</tbody></table>`;
+                    document.getElementById("resultado").innerHTML = tableHTML;
+                })
+                .catch(error => {
+                    console.error("Error al obtener los datos:", error);
+                    document.getElementById("resultado").innerHTML = "<p>Error al cargar los datos.</p>";
+                });
+        });
+    </script>
+    <style>
+        table {
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f428;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mejores Marcas por Ventas</h1>
+    <div id="resultado">Cargando datos...</div>
+</body>
+</html>

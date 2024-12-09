@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitácora de Datos</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <a class="circular-btn loginHomeButton" type="button" href="/index.html"><img src="/images/actividad-en-casa.png" alt=""></a>
+    <h1 >Consulta de Bitácora</h1>
+    <table id="bitacoraTable">
+        <thead>
+            <tr>
+                <th class="header">ID</th>
+                <th class="header">Tabla</th>
+                <th class="header">Acción</th>
+                <th class="header">Usuario</th>
+                <th class="header">Fecha</th>
+                <th class="header">Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos se insertarán aquí dinámicamente -->
+        </tbody>
+    </table>
+    <script>
+        const url = "https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Admin/Bitacora"; // Sustituye con tu URL
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const tableBody = document.querySelector("#bitacoraTable tbody");
+                data.rows.forEach(row => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${row.id}</td>
+                        <td>${row.tabla}</td>
+                        <td>${row.accion}</td>
+                        <td>${row.usuario}</td>
+                        <td>${new Date(row.fecha).toLocaleString()}</td>
+                        <td>${row.detalles}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            })
+            .catch(error => console.error("Error al cargar los datos:", error));
+    </script>
+</body>
+</html>

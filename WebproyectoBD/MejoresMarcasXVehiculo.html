@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mejores Marcas</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f448;;
+        }
+        h1 {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const url = "https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Marketing/MejoresMarcasXvehiculo";
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Error en la solicitud: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const rows = data.rows || [];
+                    let tableHTML = `<table>
+                        <thead>
+                            <tr>
+                                <th>Marca</th>
+                                <th>Total en Dólares</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+                    
+                    rows.forEach(row => {
+                        tableHTML += `<tr>
+                            <td>${row.marca}</td>
+                            <td>${row.total_dolares}</td>
+                        </tr>`;
+                    });
+
+                    tableHTML += `</tbody></table>`;
+                    document.getElementById("resultado").innerHTML = tableHTML;
+                })
+                .catch(error => {
+                    console.error("Error al obtener los datos:", error);
+                    document.getElementById("resultado").innerHTML = "<p>Error al cargar los datos.</p>";
+                });
+        });
+    </script>
+</head>
+<body>
+    <h1 class="title">Mejores Marcas por Vehículo</h1>
+    <a class="circular-btn loginHomeButton" type="button" href="/index.html"><img src="/images/actividad-en-casa.png" alt=""></a>
+    <div id="resultado">Cargando datos...</div>
+</body>
+</html>

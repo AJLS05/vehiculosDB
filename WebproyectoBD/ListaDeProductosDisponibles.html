@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Productos</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Realizamos la solicitud con la URL, usando la configuración correcta para CORS
+            fetch("https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Clientes/Productos")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Error en la solicitud: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Datos recibidos desde el servidor:", data);
+                    let rows = data.rows || [];
+                    
+                    if (rows.length === 0) {
+                        document.getElementById("resultado").innerHTML = "<p>No se encontraron productos en la base de datos.</p>";
+                        return;
+                    }
+
+                    let tableHTML = `<table border="1" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 8px; text-align: left;">VIN</th>
+                                <th style="padding: 8px; text-align: left;">Modelo</th>
+                                <th style="padding: 8px; text-align: left;">Color</th>
+                                <th style="padding: 8px; text-align: left;">No. Motor</th>
+                                <th style="padding: 8px; text-align: left;">Transmisión</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+                    rows.forEach(row => {
+                        tableHTML += `<tr>
+                            <td style="padding: 8px;">${row.VIN}</td>
+                            <td style="padding: 8px;">${row.idModelo}</td>
+                            <td style="padding: 8px;">${row.color}</td>
+                            <td style="padding: 8px;">${row.noMotor}</td>
+                            <td style="padding: 8px;">${row.transmision}</td>
+                        </tr>`;
+                    });
+
+                    tableHTML += `</tbody></table>`;
+                    document.getElementById("resultado").innerHTML = tableHTML;
+                })
+                .catch(error => {
+                    console.error("Error al obtener los datos:", error);
+                    document.getElementById("resultado").innerHTML = "<p>Error al cargar los datos. Intente nuevamente más tarde.</p>";
+                });
+        });
+    </script>
+</head>
+<body>
+    <a class="circular-btn loginHomeButton" type="button" href="/index.html"><img src="/images/actividad-en-casa.png" alt=""></a>
+    <h1 style="text-align: center; margin: 10px 0;" class="title">Lista de Productos Disponibles</h1>
+    <div id="resultado" style="text-align: center; margin: 20px;">Cargando datos...</div>
+</body>
+</html>

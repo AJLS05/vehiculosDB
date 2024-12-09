@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+/* Estilos globales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #000000, #360099);
+}
+
+.header, tr{
+color: #000000;
+
+}
+
+.circular-btn{
+  width: 50px;
+  height: 80px;
+  margin-left: 200px;
+  background: linear-gradient(-135deg, #52009e, #4158d0);
+  border: none;
+  border-radius: 50%;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  padding: 5px;
+  position: relative;
+  top: 40px; 
+}
+
+.title{
+  text-align: center;
+}
+
+.nav{
+  position: fixed;
+}
+
+.navbar {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  z-index: 1000;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 100px);
+  color: #fff;
+}
+
+/* Estilo para el botón del dropdown */
+.navbar .dropdown-toggle {
+  background: linear-gradient(-135deg, #52009e, #4158d0);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.navbar .dropdown-toggle:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+

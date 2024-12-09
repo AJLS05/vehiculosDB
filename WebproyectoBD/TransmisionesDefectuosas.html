@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transmisiones Defectuosas</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        nav {
+            margin-bottom: 20px;
+        }
+
+        .nav a {
+            display: inline-block;
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav a:hover {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const url = "https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Marketing/TransmisonesDefectuosas";
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error en la solicitud: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const rows = data.rows || [];
+                    let tableHTML = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>VIN</th>
+                                    <th>Cliente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    rows.forEach(row => {
+                        tableHTML += `
+                            <tr>
+                                <td>${row.VIN}</td>
+                                <td>${row.Cliente}</td>
+                            </tr>
+                        `;
+                    });
+
+                    tableHTML += `</tbody></table>`;
+                    document.getElementById("resultado").innerHTML = tableHTML;
+                })
+                .catch(error => {
+                    console.error("Error al obtener los datos:", error);
+                    document.getElementById("resultado").innerHTML = "<p>Error al cargar los datos.</p>";
+                });
+        });
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/index.html"><img src="/images/actividad-en-casa.png" alt=""></a>
+    </nav>
+    <h1>Transmisiones Defectuosas</h1>
+    <div id="resultado">Cargando datos...</div>
+</body>
+</html>

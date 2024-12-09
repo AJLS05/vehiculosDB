@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tendencia de Ventas</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const url = "https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Marketing/TendenciaVentas";
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Error en la solicitud: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    let rows = data.rows || [];
+                    let tableHTML = `<table border="1" style="border-collapse: collapse; width: 100%; text-align: center; color: black;">
+                        <thead>
+                            <tr>
+                                <th>Año</th>
+                                <th>Mes</th>
+                                <th>Semana</th>
+                                <th>Marca</th>
+                                <th>Género</th>
+                                <th>Rango de Ingresos</th>
+                                <th>Total Ventas</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+                    
+                    rows.forEach(row => {
+                        tableHTML += `<tr>
+                            <td>${row.Anio}</td>
+                            <td>${row.Mes}</td>
+                            <td>${row.Semana}</td>
+                            <td>${row.Marca}</td>
+                            <td>${row.Genero}</td>
+                            <td>${row.RangoIngresos}</td>
+                            <td>${row.TotalVentas}</td>
+                        </tr>`;
+                    });
+
+                    tableHTML += `</tbody></table>`;
+                    document.getElementById("resultado").innerHTML = tableHTML;
+                })
+                .catch(error => {
+                    console.error("Error al obtener los datos:", error);
+                    document.getElementById("resultado").innerHTML = "<p>Error al cargar los datos.</p>";
+                });
+        });
+    </script>
+    <style>
+        table {
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f448;
+        }
+    </style>
+</head>
+<body>
+    <a class="circular-btn loginHomeButton" type="button" href="/index.html"><img src="/images/actividad-en-casa.png" alt=""></a>
+    <h1 class="title">Tendencia de Ventas</h1>
+    <div id="resultado">Cargando datos...</div>
+</body>
+</html>
