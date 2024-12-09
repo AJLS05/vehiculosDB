@@ -1,0 +1,9 @@
+https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Admin/Bitacora
+https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Clientes/Productos
+https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Inventario
+https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Marketing/DistribuidoresInventarioPromedio
+https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Marketing/MejoresMarcasXUnidad
+https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Marketing/MejoresMarcasXvehiculo
+https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Marketing/TendenciaVentas
+https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Marketing/TransmisonesDefectuosas
+https://v02jjgaokg.execute-api.us-east-1.amazonaws.com/Etapa1/Marketing/VentasConvertibles
